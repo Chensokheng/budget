@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { toast, Toaster } from "react-hot-toast";
+import React from "react";
+
+import { Toaster } from "react-hot-toast";
 import useExpenses from "../hook/useExpenses";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function ListOfExpense() {
 	const { data, isLoading } = useExpenses();

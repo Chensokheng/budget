@@ -1,7 +1,6 @@
-import React from "react";
 import { useQuery } from "react-query";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { toast, Toaster } from "react-hot-toast";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
 import { getDate } from "../utils/getDate";
 
 export default function useExpenses() {
