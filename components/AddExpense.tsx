@@ -9,6 +9,7 @@ import ListTags from "./ListTags";
 import { ITag } from "../type";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast, Toaster } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 
 export default function AddExpense({
 	isOpen,
@@ -24,7 +25,7 @@ export default function AddExpense({
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 	const user = useUser();
 	const supabaseClient = useSupabaseClient();
-
+	const queryClient = useQueryClient();
 	useEffect(() => {
 		if (isOpen) inputRef.current.focus();
 	}, [isOpen]);
@@ -48,7 +49,6 @@ export default function AddExpense({
 		}
 
 		const date = new Date();
-		let tmr = new Date(date.setDate(date.getDate() + 1)).toISOString();
 		const firstDay = new Date(
 			date.getFullYear(),
 			date.getMonth(),
@@ -70,7 +70,10 @@ export default function AddExpense({
 		if (!total_expense.data) {
 			total_expense = await supabaseClient
 				.from("total_expense")
-				.insert({ amount, user_id: user?.id })
+				.insert({
+					amount,
+					user_id: user?.id,
+				})
 				.select()
 				.single();
 			if (total_expense.error) {
@@ -96,7 +99,6 @@ export default function AddExpense({
 			amount: parseFloat(inputRef.current.value),
 			user_id: user?.id,
 			total_expense_id: total_expense.data.id,
-			created_at: tmr,
 		};
 
 		const { error } = await supabaseClient
@@ -110,6 +112,7 @@ export default function AddExpense({
 		}
 		setAdding(false);
 		toast.success("New expense has been created.");
+		queryClient.invalidateQueries("expenses");
 		inputRef.current.value = "";
 		close();
 	};

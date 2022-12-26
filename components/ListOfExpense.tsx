@@ -1,52 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast, Toaster } from "react-hot-toast";
+import useExpenses from "../hook/useExpenses";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function ListOfExpense() {
-	const [expenses, setExpenses] = useState<any>([]);
-	const supabaseClient = useSupabaseClient();
+	const { data, isLoading } = useExpenses();
 
-	const getExpenses = async () => {
-		const date = new Date();
-		const firstDay = new Date(
-			date.getFullYear(),
-			date.getMonth(),
-			1
-		).toISOString();
-		const lastDay = new Date(
-			date.getFullYear(),
-			date.getMonth() + 1,
-			0
-		).toISOString();
-		const { data, error } = await supabaseClient
-			.from("expense")
-			.select(
-				`
-      *,
-      tags (
-        name
-      )
-    `
-			)
-			.lte("created_at", lastDay)
-			.gte("created_at", firstDay)
-			.order("created_at", { ascending: false });
-		if (error) {
-			return toast.error(error.message);
-		}
-		setExpenses(groupsDate(data) || []);
-	};
+	if (isLoading) {
+		return <h1>Loading...</h1>;
+	}
 
-	useEffect(() => {
-		getExpenses();
-		//eslint-disable-next-line
-	}, []);
+	const expenses = groupsDate(data.data);
 
 	return (
 		<>
 			<div className="w-full bg mt-20 flex flex-col gap-5 ">
 				{Object.keys(expenses).map((date: string, index: number) => {
-					console.log(date);
 					let convertDate = new Date(date).toLocaleDateString();
 					const today = new Date().toLocaleString().split(",")[0];
 					convertDate = convertDate === today ? "Today" : convertDate;
@@ -55,7 +25,10 @@ export default function ListOfExpense() {
 							<div className="pb-3 flex justify-between items-center">
 								<h1 className="text-gray-400">{convertDate}</h1>
 								<h1 className="text-gray-400">
-									${expenses[date].total}
+									${" "}
+									{parseFloat(expenses[date].total).toFixed(
+										2
+									)}
 								</h1>
 							</div>
 							{expenses[date]["data"].map(
@@ -63,7 +36,7 @@ export default function ListOfExpense() {
 									const tag = expense.tags.name.split(" ");
 									const time = new Date(
 										expense.created_at
-									).toLocaleTimeString([], {
+									).toLocaleTimeString("en-Us", {
 										hour: "2-digit",
 										minute: "2-digit",
 									});
@@ -105,7 +78,8 @@ const groupsDate = (expenses: any[]) => {
 	let groups: any = {};
 
 	expenses.forEach(function (val) {
-		var date = val.created_at.split("T")[0];
+		const date = new Date(val.created_at).toLocaleDateString();
+		console.log(val);
 		if (date in groups) {
 			groups[date].data.push(val);
 			groups[date].total += val.amount;

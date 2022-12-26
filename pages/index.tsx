@@ -11,12 +11,15 @@ import ListOfExpense from "../components/ListOfExpense";
 import SiteLayout from "../components/SiteLayout";
 import useCustomUser from "../hook/useCustomUser";
 import AddExpense from "../components/AddExpense";
+import useExpenses from "../hook/useExpenses";
 
 export default function Home() {
 	const supabaseClient = useSupabaseClient();
 	const [isOpen, setIsOpen] = useState(false);
-
-	const user = useCustomUser();
+	const user = useUser();
+	if (!user) {
+		return <Redirect to="/auth" />;
+	}
 
 	return (
 		<SiteLayout>
