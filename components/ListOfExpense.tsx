@@ -7,7 +7,13 @@ export default function ListOfExpense() {
 	const { data, isLoading } = useExpenses();
 
 	if (isLoading) {
-		return <h1>Loading...</h1>;
+		return (
+			<div className="flex flex-col gap-5">
+				<div className=" animate-pulse bg-gray-300 h-10 rounded-md"></div>
+				<div className=" animate-pulse bg-gray-300 h-10 rounded-md"></div>
+				<div className=" animate-pulse bg-gray-300 h-10 rounded-md"></div>
+			</div>
+		);
 	}
 
 	const expenses = groupsDate(data.data);

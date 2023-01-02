@@ -77,7 +77,7 @@ export default function ListTags({
 				</div>
 			)}
 			<motion.div
-				initial={true}
+				initial={false}
 				animate={isSelectTag ? "open" : "closed"}
 				variants={{
 					open: { y: 0 },
