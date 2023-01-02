@@ -78,7 +78,6 @@ const groupsDate = (expenses: any[]) => {
 
 	expenses.forEach(function (val) {
 		const date = new Date(val.created_at).toLocaleDateString();
-		console.log(val);
 		if (date in groups) {
 			groups[date].data.push(val);
 			groups[date].total += val.amount;
@@ -86,6 +85,5 @@ const groupsDate = (expenses: any[]) => {
 			groups[date] = { data: new Array(val), total: val.amount };
 		}
 	});
-
 	return groups;
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 import { motion } from "framer-motion";
 import { BsArrowLeftShort } from "react-icons/bs";
+import { VscLoading } from "react-icons/vsc";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { ITag } from "../type";
 import { toast, Toaster } from "react-hot-toast";
@@ -16,6 +17,7 @@ export default function ListTags({
 	selectTag: (tag: ITag) => void;
 }) {
 	const [isOpen, setOpen] = useState(false);
+	const [isAdding, setAdding] = useState(false);
 	const [tags, setTags] = useState<ITag[]>([]);
 
 	const supabaseClient = useSupabaseClient();
@@ -23,20 +25,28 @@ export default function ListTags({
 
 	const createTag = async (e: any) => {
 		e.preventDefault();
+		setAdding(true);
 		const formData = new FormData(e.target);
-		const { sticker, name } = Object.fromEntries(formData);
+		const { sticker, name } = Object.fromEntries(formData) as any;
+		if (!sticker || !name) {
+			setAdding(false);
+			toast.error("sticker and name can not be empty.");
+			return;
+		}
 
-		const nameTag = [sticker, name].join(" ");
+		const nameTag = [sticker.trim(), name.trim()].join(" ");
 		const { data, error } = await supabaseClient
 			.from("tags")
 			.insert({ name: nameTag, user_id: user?.id })
 			.select();
 		if (error) {
+			setAdding(false);
 			toast.error(error.message);
 			return;
 		}
-
+		setAdding(false);
 		setOpen(false);
+		toast.success(nameTag + " has been created.");
 		if (data?.length) {
 			setTags((currentTags) => [...currentTags, data[0] as ITag]);
 		}
@@ -140,7 +150,14 @@ export default function ListTags({
 						name="name"
 						required
 					/>
-					<button className="bg-black text-white px-4 py-2 rounded-md">
+					<button
+						className={[
+							"bg-black text-white px-4 py-2 rounded-md flex items-center gap-2 ",
+							isAdding ? "animate-pulse" : "",
+						].join(" ")}
+						disabled={isAdding}
+					>
+						{isAdding && <VscLoading className="animate-spin" />}
 						Confirm
 					</button>
 				</form>
