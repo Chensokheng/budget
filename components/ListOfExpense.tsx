@@ -1,5 +1,5 @@
+import moment from "moment";
 import React from "react";
-
 import { Toaster } from "react-hot-toast";
 import useExpenses from "../hook/useExpenses";
 
@@ -31,17 +31,17 @@ export default function ListOfExpense() {
 		<>
 			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 ">
 				{Object.keys(expenses).map((date: string, index: number) => {
-					let convertDate = new Date(date).toLocaleDateString();
-					const today = new Date().toLocaleString().split(",")[0];
-					convertDate = convertDate === today ? "Today" : convertDate;
+					let day = moment(date.toString()).calendar().split(" ")[0];
+					if (day !== "Today" && day !== "Yesterday") {
+						day = moment(date.toString()).format("MMM Do YY");
+					}
+
 					return (
 						<div key={index} className="divide-y">
 							<div className="pb-3 flex justify-between items-center">
+								<h1 className="text-gray-400">{day}</h1>
 								<h1 className="text-gray-400">
-									{convertDate} {today}
-								</h1>
-								<h1 className="text-gray-400">
-									${" "}
+									{"$ "}
 									{parseFloat(expenses[date].total).toFixed(
 										2
 									)}
@@ -59,7 +59,7 @@ export default function ListOfExpense() {
 									return (
 										<div
 											className="w-full flex justify-between items-center pt-3 pb-3"
-											key={index}
+											key={key}
 										>
 											<div className="flex items-center gap-5">
 												<h1 className="text-3xl">
@@ -94,12 +94,14 @@ const groupsDate = (expenses: any[]) => {
 	let groups: any = {};
 
 	expenses.forEach(function (val) {
-		const date = new Date(val.created_at).toLocaleDateString();
-		if (date in groups) {
-			groups[date].data.push(val);
-			groups[date].total += val.amount;
+		let date = new Date(val.created_at).toLocaleDateString().split("/");
+		date.unshift(date.pop() as string);
+		let convertDate = date.join("-");
+		if (convertDate in groups) {
+			groups[convertDate].data.push(val);
+			groups[convertDate].total += val.amount;
 		} else {
-			groups[date] = { data: new Array(val), total: val.amount };
+			groups[convertDate] = { data: new Array(val), total: val.amount };
 		}
 	});
 	return groups;

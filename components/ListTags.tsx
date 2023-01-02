@@ -140,13 +140,13 @@ export default function ListTags({
 				>
 					<input
 						className="border-b text-center outline-none"
-						placeholder="sticker"
+						placeholder="🏠 (sticker)"
 						name="sticker"
 						required
 					/>
 					<input
 						className="border-b text-center outline-none"
-						placeholder="name"
+						placeholder="rent (name)"
 						name="name"
 						required
 					/>
