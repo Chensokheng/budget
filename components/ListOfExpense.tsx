@@ -29,7 +29,7 @@ export default function ListOfExpense() {
 	}
 	return (
 		<>
-			<div className="w-full bg mt-20 flex flex-col gap-5 ">
+			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 ">
 				{Object.keys(expenses).map((date: string, index: number) => {
 					let convertDate = new Date(date).toLocaleDateString();
 					const today = new Date().toLocaleString().split(",")[0];

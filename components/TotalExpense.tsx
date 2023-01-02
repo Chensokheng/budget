@@ -25,7 +25,7 @@ export default function TotalExpense() {
 	}
 
 	return (
-		<div className="h-96 flex justify-center items-center flex-col">
+		<div className="h-56 flex justify-center items-center flex-col">
 			<h1 className="text-center text-gray-500">Spent this month</h1>
 			<div className="flex justify-center mt-5">
 				<h1 className="text-4xl text-gray-500">$</h1>
