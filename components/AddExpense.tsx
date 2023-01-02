@@ -144,7 +144,7 @@ export default function AddExpense({
 						<span className="text-3xl text-gray-400">$</span>
 						<div>
 							<h1 className="text-center text-sm text-gray-400">
-								Today at 10:30am
+								Today at {new Date().toDateString()}
 							</h1>
 							<input
 								className="border-b border-zinc-200 bg-transparent outline-none text-center text-5xl w-52 font-bold "

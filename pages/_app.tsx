@@ -7,13 +7,16 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Toaster } from "react-hot-toast";
 
+import { Nunito } from "@next/font/google";
+
+const nunito = Nunito();
+
 export default function MyApp({
 	Component,
 	pageProps,
 }: AppProps<{
 	initialSession: Session;
 }>) {
-	// Create a new supabase browser client on every first render.
 	const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 	const queryClient = new QueryClient();
 
@@ -23,7 +26,9 @@ export default function MyApp({
 			initialSession={pageProps.initialSession}
 		>
 			<QueryClientProvider client={queryClient}>
-				<Component {...pageProps} />
+				<main className={nunito.className}>
+					<Component {...pageProps} />
+				</main>
 				<ReactQueryDevtools initialIsOpen={false} />
 
 				<Toaster />

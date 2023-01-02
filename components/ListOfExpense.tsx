@@ -20,9 +20,11 @@ export default function ListOfExpense() {
 
 	if (!Object.keys(expenses).length) {
 		return (
-			<h1 className="text-center text-gray-500">
-				{"No expense records yet."}
-			</h1>
+			<div className="h-72">
+				<h1 className="text-center text-gray-500">
+					{"No expense records yet."}
+				</h1>{" "}
+			</div>
 		);
 	}
 	return (
