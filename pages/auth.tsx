@@ -1,6 +1,4 @@
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { GetServerSidePropsContext } from "next";
 import { FcGoogle } from "react-icons/fc";
 import React from "react";
 import Redirect from "../components/Redirect";

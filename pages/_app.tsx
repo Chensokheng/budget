@@ -9,7 +9,10 @@ import { Toaster } from "react-hot-toast";
 
 import { Nunito } from "@next/font/google";
 
-const nunito = Nunito();
+const nunito = Nunito({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700", "800"],
+});
 
 export default function MyApp({
 	Component,
@@ -29,9 +32,6 @@ export default function MyApp({
 				<main className={nunito.className}>
 					<Component {...pageProps} />
 				</main>
-				<ReactQueryDevtools initialIsOpen={false} />
-
-				<Toaster />
 			</QueryClientProvider>
 		</SessionContextProvider>
 	);

@@ -18,15 +18,15 @@ export default function ListOfExpense() {
 
 	const expenses = groupsDate(data.data);
 
-	if (!Object.keys(expenses).length) {
-		return (
-			<div className="h-72">
-				<h1 className="text-center text-gray-500">
-					{"No expense records yet."}
-				</h1>{" "}
-			</div>
-		);
-	}
+	// if (!Object.keys(expenses).length) {
+	return (
+		<div className="h-72">
+			<h1 className="text-center text-gray-500">
+				{"No expense records yet."}
+			</h1>{" "}
+		</div>
+	);
+	// }
 	return (
 		<>
 			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 ">
