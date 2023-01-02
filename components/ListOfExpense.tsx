@@ -37,7 +37,9 @@ export default function ListOfExpense() {
 					return (
 						<div key={index} className="divide-y">
 							<div className="pb-3 flex justify-between items-center">
-								<h1 className="text-gray-400">{convertDate}</h1>
+								<h1 className="text-gray-400">
+									{convertDate} {today}
+								</h1>
 								<h1 className="text-gray-400">
 									${" "}
 									{parseFloat(expenses[date].total).toFixed(
