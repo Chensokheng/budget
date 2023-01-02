@@ -4,11 +4,11 @@ export const getDate = () => {
 		date.getFullYear(),
 		date.getMonth(),
 		1
-	).toLocaleDateString();
+	).toISOString();
 	const lastDay = new Date(
 		date.getFullYear(),
 		date.getMonth() + 1,
 		0
-	).toLocaleDateString();
+	).toISOString();
 	return { firstDay, lastDay };
 };

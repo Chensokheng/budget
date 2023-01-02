@@ -83,7 +83,7 @@ export default function ListTags({
 					open: { y: 0 },
 					closed: { y: "100%" },
 				}}
-				className="fixed bottom-0 h-1/2 max-w-lg sm:w-lg w-full bg-white p-5 border-t  rounded-t-3xl"
+				className="fixed bottom-0 h-2/3 max-w-lg sm:w-lg w-full bg-white p-5 border-t  rounded-t-3xl"
 			>
 				<h1 className="text-center mb-5 uppercase text-gray-400">
 					Expenses
