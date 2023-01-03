@@ -91,7 +91,7 @@ const groupsDate = (expenses: any[]) => {
 	expenses.forEach(function (val) {
 		let date = moment(val.created_at).calendar().split(" ")[0];
 		if (date !== "Today" && date !== "Yesterday") {
-			date = moment(date.toString()).format("MMM Do YY");
+			date = moment(val.created_at).format("MMM Do YY");
 		}
 		if (date in groups) {
 			groups[date].data.push(val);

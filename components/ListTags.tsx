@@ -55,7 +55,9 @@ export default function ListTags({
 
 	const getTags = async () => {
 		const { data } = await supabaseClient.from("tags").select();
-		setTags(data as ITag[]);
+		if (data) {
+			setTags(data as ITag[]);
+		}
 	};
 
 	useEffect(() => {
