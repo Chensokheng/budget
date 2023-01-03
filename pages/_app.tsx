@@ -2,10 +2,8 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
-import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { Toaster } from "react-hot-toast";
+import React, { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Nunito } from "@next/font/google";
 
@@ -21,7 +19,9 @@ export default function MyApp({
 	initialSession: Session;
 }>) {
 	const [supabaseClient] = useState(() => createBrowserSupabaseClient());
-	const queryClient = new QueryClient();
+	const [queryClient] = React.useState(function () {
+		return new QueryClient();
+	});
 
 	return (
 		<SessionContextProvider
