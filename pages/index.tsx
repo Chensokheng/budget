@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-
 import { useUser } from "@supabase/auth-helpers-react";
-
 import Redirect from "../components/Redirect";
 import TotalExpense from "../components/TotalExpense";
 import ListOfExpense from "../components/ListOfExpense";
 import SiteLayout from "../components/SiteLayout";
 import AddExpense from "../components/AddExpense";
 import BottomNavigation from "../components/BottomNavigation";
+import moment from "moment";
 
 export default function Home() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -27,9 +26,3 @@ export default function Home() {
 		</SiteLayout>
 	);
 }
-
-// import React from "react";
-
-// export default function index() {
-// 	return <div>index</div>;
-// }

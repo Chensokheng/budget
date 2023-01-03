@@ -31,15 +31,10 @@ export default function ListOfExpense() {
 		<>
 			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 ">
 				{Object.keys(expenses).map((date: string, index: number) => {
-					let day = moment(date.toString()).calendar().split(" ")[0];
-					if (day !== "Today" && day !== "Yesterday") {
-						day = moment(date.toString()).format("MMM Do YY");
-					}
-
 					return (
 						<div key={index} className="divide-y">
 							<div className="pb-3 flex justify-between items-center">
-								<h1 className="text-gray-400">{day}</h1>
+								<h1 className="text-gray-400">{date}</h1>
 								<h1 className="text-gray-400">
 									{"$ "}
 									{parseFloat(expenses[date].total).toFixed(
@@ -94,14 +89,15 @@ const groupsDate = (expenses: any[]) => {
 	let groups: any = {};
 
 	expenses.forEach(function (val) {
-		let date = new Date(val.created_at).toLocaleDateString().split("/");
-		date.unshift(date.pop() as string);
-		let convertDate = date.join("-");
-		if (convertDate in groups) {
-			groups[convertDate].data.push(val);
-			groups[convertDate].total += val.amount;
+		let date = moment(val.created_at).calendar().split(" ")[0];
+		if (date !== "Today" && date !== "Yesterday") {
+			date = moment(date.toString()).format("MMM Do YY");
+		}
+		if (date in groups) {
+			groups[date].data.push(val);
+			groups[date].total += val.amount;
 		} else {
-			groups[convertDate] = { data: new Array(val), total: val.amount };
+			groups[date] = { data: new Array(val), total: val.amount };
 		}
 	});
 	return groups;
