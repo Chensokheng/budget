@@ -9,7 +9,7 @@ import ListTags from "./ListTags";
 import { ITag } from "../type";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast, Toaster } from "react-hot-toast";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function AddExpense({
 	isOpen,
@@ -112,7 +112,7 @@ export default function AddExpense({
 		}
 		setAdding(false);
 		toast.success("New expense has been created.");
-		queryClient.invalidateQueries("expenses");
+		queryClient.invalidateQueries(["expenses"]);
 		inputRef.current.value = "";
 		close();
 	};

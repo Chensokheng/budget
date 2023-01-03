@@ -25,12 +25,10 @@ export default function Logs() {
 									and what is coming for next version.
 								</li>
 								<li>
-									Auth and Data render on server side (WIP)
+									Fix list expenses not reading from the
+									cache.
 								</li>
-								<li>
-									Public tags for user who lazy to create
-									them. (WIP)
-								</li>
+								<li>Fix parse date time on phone.</li>
 							</div>
 						</div>
 					</div>
