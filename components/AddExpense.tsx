@@ -27,7 +27,9 @@ export default function AddExpense({
 	const supabaseClient = useSupabaseClient();
 	const queryClient = useQueryClient();
 	useEffect(() => {
-		if (isOpen) inputRef.current.focus();
+		if (isOpen) {
+			inputRef.current.focus();
+		}
 	}, [isOpen]);
 
 	const closeTags = () => {
@@ -149,7 +151,6 @@ export default function AddExpense({
 							<input
 								className="border-b border-zinc-200 bg-transparent outline-none text-center text-5xl w-52 font-bold "
 								placeholder="0"
-								autoFocus
 								type="number"
 								ref={inputRef}
 								min={0}
