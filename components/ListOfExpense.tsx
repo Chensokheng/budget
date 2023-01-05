@@ -29,10 +29,10 @@ export default function ListOfExpense() {
 	}
 	return (
 		<>
-			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 ">
+			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 divide-y ">
 				{Object.keys(expenses).map((date: string, index: number) => {
 					return (
-						<div key={index} className="divide-y">
+						<div key={index} className="pt-5">
 							<div className="pb-3 flex justify-between items-center">
 								<h1 className="text-gray-500">{date}</h1>
 								<h1 className="text-gray-500">
@@ -57,11 +57,11 @@ export default function ListOfExpense() {
 											key={key}
 										>
 											<div className="flex items-center gap-5">
-												<h1 className="text-3xl">
+												<h1 className="text-4xl">
 													{tag[0]}
 												</h1>
 												<div>
-													<h1 className="fold-bold text-lg">
+													<h1 className=" font-semibold text-lg">
 														{tag[1]}
 													</h1>
 													<p className="text-gray-500">

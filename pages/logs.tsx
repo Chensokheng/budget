@@ -9,7 +9,7 @@ import logs from "../static/logs";
 export default function Logs() {
 	return (
 		<SiteLayout>
-			<div className="min-h-screen w-full">
+			<div className="min-h-screen w-full pt-10 pb-20">
 				<div className="border-b">
 					<Link href="/">
 						<IoReturnUpBack className="h-8 w-8 hover:scale-110 transition-all" />

@@ -29,7 +29,16 @@ export default function Summary() {
 		<SiteLayout>
 			<div className="min-h-screen w-full py-10 flex flex-col gap-10 ">
 				<div className="bg-yellow-100 py-3 px-2 rounded-md">
-					<h1 className="tex-sm">ℹ️ This is not your data.</h1>
+					<h1 className="tex-sm">
+						ℹ️ This is not your data. We are still working on it.
+						<Link
+							href={"/logs"}
+							className="text-blue-600 underline"
+						>
+							{" Visit our log to keep update"}
+						</Link>
+						.
+					</h1>
 				</div>
 				<div>
 					<h1 className="text-5xl font-semibold mb-2">$803.92</h1>

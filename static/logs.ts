@@ -3,6 +3,7 @@ import { ILogs } from "../type";
 const logs: ILogs = {
 	"Thu Jan 05 2023": [
 		"Update color of the list expenses.",
+		"Update app layout and change text colors.",
 		"Remove padding from bottom navigation.",
 		"Release a static data version of summary expense.",
 		"Personal user's data summary expense is still in progress.",
