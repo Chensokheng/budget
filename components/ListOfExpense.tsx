@@ -34,8 +34,8 @@ export default function ListOfExpense() {
 					return (
 						<div key={index} className="divide-y">
 							<div className="pb-3 flex justify-between items-center">
-								<h1 className="text-gray-400">{date}</h1>
-								<h1 className="text-gray-400">
+								<h1 className="text-gray-500">{date}</h1>
+								<h1 className="text-gray-500">
 									{"$ "}
 									{parseFloat(expenses[date].total).toFixed(
 										2
@@ -64,12 +64,12 @@ export default function ListOfExpense() {
 													<h1 className="fold-bold text-lg">
 														{tag[1]}
 													</h1>
-													<p className="text-gray-400">
+													<p className="text-gray-500">
 														{time}
 													</p>
 												</div>
 											</div>
-											<h1 className="fold-bold text-lg">
+											<h1 className="font-semibold text-lg">
 												$ {parseFloat(expense.amount)}
 											</h1>
 										</div>
