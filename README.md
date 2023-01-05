@@ -36,6 +36,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 TODO
 
 -   [x] change log
+-   [x] make public tag
+-   [ ] analytic expense
 -   [ ] do the server side auth
 -   [ ] do the server side get expenses
--   [ ] make public tag
