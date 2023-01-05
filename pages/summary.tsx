@@ -18,11 +18,16 @@ import Redirect from "../components/Redirect";
 
 export default function Summary() {
 	const user = useUser();
-	const { data } = useExpenses();
+	const { data, isLoading } = useExpenses();
 
 	if (!user) {
 		return <Redirect to="/auth" />;
 	}
+
+	if (isLoading) {
+		return <></>;
+	}
+
 	const totalSpent = data?.data[0].total_expense.amount;
 	return (
 		<SiteLayout>
@@ -50,49 +55,4 @@ export default function Summary() {
 			</div>
 		</SiteLayout>
 	);
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const supabase = createServerSupabaseClient(context);
-
-	// Check if we have a session
-	const {
-		data: { session },
-	} = await supabase.auth.getSession();
-
-	if (!session)
-		return {
-			redirect: {
-				destination: "/auth",
-				permanent: false,
-			},
-		};
-
-	const queryClient = new QueryClient();
-	const getExpenses = () => {
-		const { firstDay, lastDay } = getDate();
-		return supabase
-			.from("expense")
-			.select(
-				`
-      *,
-      tags (
-        name
-      ),
-      total_expense(
-        amount
-      )
-    `
-			)
-			.lte("created_at", lastDay)
-			.gte("created_at", firstDay)
-			.order("created_at", { ascending: false });
-	};
-	await queryClient.prefetchQuery(["expenses"], getExpenses);
-
-	return {
-		props: {
-			dehydratedState: dehydrate(queryClient),
-		},
-	};
 }
