@@ -1,6 +1,11 @@
 import { ILogs } from "../type";
 
 const logs: ILogs = {
+	"Thu Jan 05 2023": [
+		"Remove padding from bottom navigation.",
+		"In progress of the summary feature.",
+		"Struggling a bit with Chart.js.",
+	],
 	"Wed Jan 04 2023": ["Add public default tags.", "Fix invalid date."],
 	"Tue Jan 03 2023": [
 		"Logs page to keep track what has been done and what is coming for next version.",

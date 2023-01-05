@@ -9,7 +9,7 @@ export default function BottomNavigation({
 	addExpense: () => void;
 }) {
 	return (
-		<div className="fixed bottom-0  w-lg h-14 grid grid-cols-2 bg-white px-8 sm:px-0 pb-20">
+		<div className="fixed bottom-0  w-lg h-14 grid grid-cols-2 bg-white px-8 sm:px-0 pb-9">
 			<div
 				className="flex justify-center items-center flex-col group cursor-pointer"
 				onClick={addExpense}
