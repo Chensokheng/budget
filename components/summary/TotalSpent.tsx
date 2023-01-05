@@ -63,7 +63,6 @@ const Percentage = ({
 
 const getPercentTagDiff = (lastMonth: number = 0, thisMonth: number = 0) => {
 	let res = ((thisMonth - lastMonth) / lastMonth) * 100;
-	console.log(lastMonth, thisMonth);
 	if (res === Infinity) {
 		res = 0;
 	}
