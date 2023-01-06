@@ -59,7 +59,8 @@ export default function ConfirmExpense({
 					<div className="flex-1 flex justify-center items-center">
 						<div className="flex items-center gap-10">
 							<h1 className="text-3xl font-black">${amount}</h1>
-							<HiOutlineArrowLongRight className="w-8 h-8 animate-bounce" />
+
+							<HiOutlineArrowLongRight className="w-8 h-8" />
 
 							<div className="flex items-center gap-5">
 								<h1 className="text-4xl">{tag[0]}</h1>
