@@ -1,7 +1,10 @@
 import { ILogs } from "../type";
 
 const logs: ILogs = {
-	"Sat Jan 07 2023": ["Add confirmation modal after use input the amount."],
+	"Sat Jan 07 2023": [
+		"Add confirmation modal after user input the amount.",
+		"Fix page scrolling on adding expense.",
+	],
 	"Fri Jan 06 2023": [
 		"Release personal user's data summary expense.",
 		"User can logout and switch account.",
