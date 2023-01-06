@@ -24,7 +24,7 @@ export default function ListOfSpent({ expenses }: { expenses: any[] }) {
 								</p>
 							</div>
 							<h1 className=" font-semibold text-lg">
-								${spent.total}
+								${parseFloat(spent.total).toFixed(2)}
 							</h1>
 						</div>
 					</div>

@@ -4,6 +4,7 @@ const logs: ILogs = {
 	"Fri Jan 06 2023": [
 		"Release personal user's data summary expense.",
 		"User can logout and switch account.",
+		"Fix total amount display.",
 	],
 	"Thu Jan 05 2023": [
 		"Update color of the list expenses.",
