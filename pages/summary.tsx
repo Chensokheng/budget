@@ -28,6 +28,15 @@ export default function Summary() {
 		return <></>;
 	}
 
+	if (!data.data.length) {
+		return (
+			<SiteLayout>
+				<h1>{"You don't have any expenses yet."}</h1>
+				<SummaryNavigation />
+			</SiteLayout>
+		);
+	}
+
 	const totalSpent = data?.data[0].total_expense.amount;
 	return (
 		<SiteLayout>
@@ -36,23 +45,29 @@ export default function Summary() {
 				<Chart expenses={data.data} />
 				<ListOfSpent expenses={data.data} />
 			</div>
-			<div className="fixed bottom-0  w-lg h-14 grid grid-cols-3 bg-white px-8 sm:px-0 pb-9">
-				<div className="flex justify-center items-center flex-col group cursor-pointer">
-					<Link href="/summary">
-						<FiPieChart className="h-8 w-8 group-hover:scale-125 transition-all" />
-					</Link>
-				</div>
-				<div className="flex justify-center items-center flex-col group cursor-pointer">
-					<Link href="/">
-						<CgAddR className="h-8 w-8 hover:scale-125 transition-all" />
-					</Link>
-				</div>
-				<div className="flex justify-center items-center flex-col group cursor-pointer">
-					<Link href="/logs">
-						<BsInfo className="h-8 w-8 group-hover:scale-125 transition-all" />
-					</Link>
-				</div>
-			</div>
+			<SummaryNavigation />
 		</SiteLayout>
 	);
 }
+
+const SummaryNavigation = () => {
+	return (
+		<div className="fixed bottom-0  w-lg h-14 grid grid-cols-3 bg-white px-8 sm:px-0 pb-9">
+			<div className="flex justify-center items-center flex-col group cursor-pointer">
+				<Link href="/summary">
+					<FiPieChart className="h-8 w-8 group-hover:scale-125 transition-all" />
+				</Link>
+			</div>
+			<div className="flex justify-center items-center flex-col group cursor-pointer">
+				<Link href="/">
+					<CgAddR className="h-8 w-8 hover:scale-125 transition-all" />
+				</Link>
+			</div>
+			<div className="flex justify-center items-center flex-col group cursor-pointer">
+				<Link href="/logs">
+					<BsInfo className="h-8 w-8 group-hover:scale-125 transition-all" />
+				</Link>
+			</div>
+		</div>
+	);
+};

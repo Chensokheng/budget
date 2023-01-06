@@ -15,10 +15,7 @@ export default function ListOfExpense() {
 			</div>
 		);
 	}
-
-	const expenses = groupsDate(data.data);
-
-	if (!Object.keys(expenses).length) {
+	if (!data.data.length) {
 		return (
 			<div className="h-72">
 				<h1 className="text-center text-gray-500">
@@ -27,6 +24,8 @@ export default function ListOfExpense() {
 			</div>
 		);
 	}
+	const expenses = groupsDate(data.data);
+
 	return (
 		<>
 			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 divide-y ">
