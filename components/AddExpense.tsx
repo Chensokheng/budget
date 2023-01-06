@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import { BsArrowDown } from "react-icons/bs";
 import { FiRotateCcw } from "react-icons/fi";
 import { BsTags } from "react-icons/bs";
-import { VscLoading } from "react-icons/vsc";
 
 import ListTags from "./ListTags";
 import { ITag } from "../type";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast, Toaster } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import ConfirmExpense from "./ConfirmExpense";
 
 export default function AddExpense({
 	isOpen,
@@ -20,6 +20,7 @@ export default function AddExpense({
 }) {
 	const [isSelectTag, setSelectTag] = useState(false);
 	const [tag, setTag] = useState<ITag>();
+	const [isConfirm, setIsConfirm] = useState(false);
 	const [adding, setAdding] = useState(false);
 
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -39,84 +40,102 @@ export default function AddExpense({
 
 	const submitExpense = async () => {
 		setAdding(true);
+		if (validateInput()) {
+			const amount = parseFloat(inputRef.current.value);
+
+			const date = new Date();
+			const firstDay = new Date(
+				date.getFullYear(),
+				date.getMonth(),
+				1
+			).toISOString();
+			const lastDay = new Date(
+				date.getFullYear(),
+				date.getMonth() + 1,
+				0
+			).toISOString();
+
+			let total_expense = await supabaseClient
+				.from("total_expense")
+				.select()
+				.lte("created_at", lastDay)
+				.gte("created_at", firstDay)
+				.single();
+
+			if (!total_expense.data) {
+				total_expense = await supabaseClient
+					.from("total_expense")
+					.insert({
+						amount,
+						user_id: user?.id,
+					})
+					.select()
+					.single();
+				if (total_expense.error) {
+					setAdding(false);
+					toast.error(total_expense.error.message);
+					return;
+				}
+			} else {
+				total_expense = await supabaseClient
+					.from("total_expense")
+					.update({ amount: total_expense.data.amount + amount })
+					.eq("id", total_expense.data.id)
+					.select()
+					.single();
+				if (total_expense.error) {
+					setAdding(false);
+					toast.error(total_expense.error.message);
+					return;
+				}
+			}
+			const expense = {
+				tag_id: tag?.id,
+				amount: parseFloat(inputRef.current.value),
+				user_id: user?.id,
+				total_expense_id: total_expense.data.id,
+			};
+
+			const { error } = await supabaseClient
+				.from("expense")
+				.insert(expense)
+				.select();
+
+			if (error) {
+				setAdding(false);
+				return toast.error(error.message);
+			}
+			setAdding(false);
+			toast.success("New expense has been created.");
+			queryClient.invalidateQueries(["expenses"]);
+			inputRef.current.value = "";
+			setIsConfirm(false);
+			close();
+		}
+	};
+
+	const handleOnNext = () => {
+		if (validateInput()) {
+			setIsConfirm(true);
+		}
+	};
+	const validateInput = () => {
 		if (!tag) {
 			setAdding(false);
-			return toast.error("Please a tag!!");
+			toast.error("Please a tag!!");
+			return false;
 		}
 		const amount = parseFloat(inputRef.current.value);
 
 		if (!amount || amount <= 0) {
 			setAdding(false);
-			return toast.error("Amount should be bigger than 0.");
+			toast.error("Amount should be bigger than 0.");
+			return false;
 		}
-
-		const date = new Date();
-		const firstDay = new Date(
-			date.getFullYear(),
-			date.getMonth(),
-			1
-		).toISOString();
-		const lastDay = new Date(
-			date.getFullYear(),
-			date.getMonth() + 1,
-			0
-		).toISOString();
-
-		let total_expense = await supabaseClient
-			.from("total_expense")
-			.select()
-			.lte("created_at", lastDay)
-			.gte("created_at", firstDay)
-			.single();
-
-		if (!total_expense.data) {
-			total_expense = await supabaseClient
-				.from("total_expense")
-				.insert({
-					amount,
-					user_id: user?.id,
-				})
-				.select()
-				.single();
-			if (total_expense.error) {
-				setAdding(false);
-				toast.error(total_expense.error.message);
-				return;
-			}
-		} else {
-			total_expense = await supabaseClient
-				.from("total_expense")
-				.update({ amount: total_expense.data.amount + amount })
-				.eq("id", total_expense.data.id)
-				.select()
-				.single();
-			if (total_expense.error) {
-				setAdding(false);
-				toast.error(total_expense.error.message);
-				return;
-			}
-		}
-		const expense = {
-			tag_id: tag?.id,
-			amount: parseFloat(inputRef.current.value),
-			user_id: user?.id,
-			total_expense_id: total_expense.data.id,
-		};
-
-		const { error } = await supabaseClient
-			.from("expense")
-			.insert(expense)
-			.select();
-
-		if (error) {
-			setAdding(false);
-			return toast.error(error.message);
-		}
-		setAdding(false);
-		toast.success("New expense has been created.");
-		queryClient.invalidateQueries(["expenses"]);
-		inputRef.current.value = "";
-		close();
+		return true;
+	};
+	const handleOnCancel = () => {
+		setIsConfirm(false);
 	};
 
 	return (
@@ -167,14 +186,10 @@ export default function AddExpense({
 						<FiRotateCcw className="text-gray-400" />
 					</div>
 					<button
-						className={[
-							"bg-black text-white py-2 px-3 rounded-lg hover:tracking-wider transition-all hover:shadow-md  flex gap-3",
-							adding ? "animate-pulse" : "",
-						].join(" ")}
-						onClick={submitExpense}
+						className="bg-black text-white px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
+						onClick={handleOnNext}
 					>
-						{adding && <VscLoading className="animate-spin" />}
-						Confirm
+						Next
 					</button>
 				</div>
 			</motion.div>
@@ -186,6 +201,14 @@ export default function AddExpense({
 				selectTag={(tag: ITag) => {
 					setTag(tag);
 				}}
+			/>
+			<ConfirmExpense
+				isConfirm={isConfirm}
+				amount={inputRef.current ? inputRef.current.value : "0"}
+				tag={tag?.name.split(" ") || ["", ""]}
+				submitExpense={submitExpense}
+				adding={adding}
+				handleOnCancel={handleOnCancel}
 			/>
 			<Toaster position="top-center" />
 		</>

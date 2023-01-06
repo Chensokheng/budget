@@ -6,7 +6,6 @@ import ListOfExpense from "../components/ListOfExpense";
 import SiteLayout from "../components/SiteLayout";
 import AddExpense from "../components/AddExpense";
 import BottomNavigation from "../components/BottomNavigation";
-import moment from "moment";
 
 export default function Home() {
 	const [isOpen, setIsOpen] = useState(false);
