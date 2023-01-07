@@ -9,9 +9,11 @@ import { AiOutlineLogout } from "react-icons/ai";
 import useExpenses from "../hook/useExpenses";
 import TotalSpent from "../components/summary/TotalSpent";
 import ListOfSpent from "../components/summary/ListOfSpent";
-import Chart from "../components/summary/Chart";
+
+const Chart = dynamic(() => import("../components/summary/Chart"));
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Redirect from "../components/Redirect";
+import dynamic from "next/dynamic";
 
 export default function Summary() {
 	const user = useUser();

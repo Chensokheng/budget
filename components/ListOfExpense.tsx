@@ -1,4 +1,6 @@
-import moment from "moment";
+import dayjs from "dayjs";
+import calendar from "dayjs/plugin/calendar";
+dayjs.extend(calendar);
 import React from "react";
 import { Toaster } from "react-hot-toast";
 import useExpenses from "../hook/useExpenses";
@@ -88,9 +90,9 @@ const groupsDate = (expenses: any[]) => {
 	let groups: any = {};
 
 	expenses.forEach(function (val) {
-		let date = moment(val.created_at).calendar().split(" ")[0];
+		let date = dayjs(val.created_at).calendar().split(" ")[0];
 		if (date !== "Today" && date !== "Yesterday") {
-			date = moment(val.created_at).format("MMM Do YY");
+			date = dayjs(val.created_at).format("MMM D, YYYY");
 		}
 		if (date in groups) {
 			groups[date].data.push(val);

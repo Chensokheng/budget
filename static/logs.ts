@@ -4,6 +4,7 @@ const logs: ILogs = {
 	"Sat Jan 07 2023": [
 		"Add confirmation modal after user input the amount.",
 		"Fix page scrolling on adding expense.",
+		"Chore remove some bundle size on initial load.",
 	],
 	"Fri Jan 06 2023": [
 		"Release personal user's data summary expense.",

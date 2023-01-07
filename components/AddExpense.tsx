@@ -4,12 +4,13 @@ import { BsArrowDown } from "react-icons/bs";
 import { FiRotateCcw } from "react-icons/fi";
 import { BsTags } from "react-icons/bs";
 
-import ListTags from "./ListTags";
 import { ITag } from "../type";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast, Toaster } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import ConfirmExpense from "./ConfirmExpense";
+import dynamic from "next/dynamic";
+const ConfirmExpense = dynamic(() => import("./ConfirmExpense"));
+const ListTags = dynamic(() => import("./ListTags"));
 
 export default function AddExpense({
 	isOpen,
