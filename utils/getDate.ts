@@ -1,3 +1,5 @@
+import { controllers } from "chart.js";
+
 export const getDate = (current = true) => {
 	let date = new Date();
 	if (!current) {
@@ -14,4 +16,11 @@ export const getDate = (current = true) => {
 		0
 	).toISOString();
 	return { firstDay, lastDay };
+};
+
+export const lastFewDays = (daysAgo: number) => {
+	const date = new Date();
+	return new Date(
+		date.getTime() - daysAgo * 24 * 60 * 60 * 1000
+	).toISOString();
 };

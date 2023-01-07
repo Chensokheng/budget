@@ -11,7 +11,7 @@ export default function Test() {
 	if (isLoading) {
 		return <></>;
 	}
-	return <>{data?.data}</>;
+	return <></>;
 	// return (
 	// 	<div>
 	// 		<button>{JSON.stringify()}</button>
