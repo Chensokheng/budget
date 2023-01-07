@@ -14,7 +14,7 @@ export default function BottomNavigation({
 }) {
 	const supabase = useSupabaseClient();
 	return (
-		<div className="fixed bottom-0  w-lg h-14 grid grid-cols-4 bg-white px-8 sm:px-0 pb-9">
+		<div className="fixed bottom-0  w-lg h-14 grid grid-cols-4 bg-white px-8 sm:px-0 pb-5 border-t pt-3">
 			<div className="flex justify-center items-center flex-col group cursor-pointer">
 				<Link href="/summary">
 					<FiPieChart className="h-8 w-8 group-hover:scale-125 transition-all" />

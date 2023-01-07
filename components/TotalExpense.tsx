@@ -18,10 +18,13 @@ export default function TotalExpense() {
 		toast.error(data?.error.message);
 		return <></>;
 	}
-	let amount = [0, 0];
+	let amount = ["0", "0"];
 
-	if (data.data.length) {
-		amount = data?.data[0].total_expense.amount.toString().split(".");
+	if (data?.data.length) {
+		amount = data?.data[0]?.total_expense?.amount.toString().split(".") || [
+			"0",
+			"0",
+		];
 	}
 
 	return (

@@ -8,6 +8,7 @@ import { ITag } from "../type";
 import { toast, Toaster } from "react-hot-toast";
 import useTags from "../hook/useTags";
 import { useQueryClient } from "@tanstack/react-query";
+import useCustomSupabaseClient from "../hook/useCustomSupabaseClient";
 
 export default function ListTags({
 	isSelectTag,
@@ -23,7 +24,7 @@ export default function ListTags({
 	const [isAdding, setAdding] = useState(false);
 	const { data: tags, isLoading } = useTags();
 
-	const supabaseClient = useSupabaseClient();
+	const supabaseClient = useCustomSupabaseClient();
 	const user = useUser();
 
 	const createTag = async (e: any) => {
@@ -51,9 +52,11 @@ export default function ListTags({
 		setAdding(false);
 		setOpen(false);
 		toast.success(nameTag + " has been created.");
-		if (data) {
+		if (data && tags) {
 			const updatedTag = { ...tags };
-			updatedTag["data"] = [...updatedTag["data"], data];
+			if (updatedTag.data) {
+				updatedTag["data"] = [...updatedTag["data"], data];
+			}
 			queryClient.setQueryData(["tags"], updatedTag);
 		}
 		e.target.reset();
@@ -95,7 +98,7 @@ export default function ListTags({
 					>
 						<IoIosAdd className="h-8 w-8 text-gray-400 group-hover:text-zinc-500 group-hover:scale-125 transition-all" />
 					</div>
-					{tags.data.map((tag: ITag, index: number) => {
+					{tags?.data?.map((tag, index: number) => {
 						let name = tag.name.split(" ");
 						return (
 							<div

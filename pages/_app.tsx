@@ -1,7 +1,11 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
+import {
+	SessionContextProvider,
+	Session,
+	SupabaseClient,
+} from "@supabase/auth-helpers-react";
 import React, { useState } from "react";
 import {
 	QueryClient,
@@ -12,6 +16,7 @@ import {
 import { Nunito } from "@next/font/google";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SE0 from "../components/SEO";
+import { Database } from "../type/schema";
 
 const nunito = Nunito({
 	subsets: ["latin"],
@@ -35,7 +40,9 @@ export default function MyApp({
 			<SE0 />
 
 			<SessionContextProvider
-				supabaseClient={supabaseClient}
+				supabaseClient={
+					supabaseClient as SupabaseClient<Database, "public", any>
+				}
 				initialSession={pageProps.initialSession}
 			>
 				<QueryClientProvider client={queryClient}>

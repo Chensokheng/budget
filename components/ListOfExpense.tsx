@@ -4,6 +4,7 @@ dayjs.extend(calendar);
 import React from "react";
 import { Toaster } from "react-hot-toast";
 import useExpenses from "../hook/useExpenses";
+import { IExpense } from "../type";
 
 export default function ListOfExpense() {
 	const { data, isLoading } = useExpenses();
@@ -17,7 +18,7 @@ export default function ListOfExpense() {
 			</div>
 		);
 	}
-	if (!data.data.length) {
+	if (!data?.data?.length) {
 		return (
 			<div className="h-72">
 				<h1 className="text-center text-gray-500">
@@ -38,14 +39,16 @@ export default function ListOfExpense() {
 								<h1 className="text-gray-500">{date}</h1>
 								<h1 className="text-gray-500">
 									{"$ "}
-									{parseFloat(expenses[date].total).toFixed(
-										2
-									)}
+									{parseFloat(
+										expenses[date].total.toString()
+									).toFixed(2)}
 								</h1>
 							</div>
 							{expenses[date]["data"].map(
-								(expense: any, key: number) => {
-									const tag = expense.tags.name.split(" ");
+								(expense, key: number) => {
+									const tag = expense.tags?.name.split(
+										" "
+									) || ["", ""];
 									const time = new Date(
 										expense.created_at
 									).toLocaleTimeString("en-Us", {
@@ -71,7 +74,10 @@ export default function ListOfExpense() {
 												</div>
 											</div>
 											<h1 className="font-semibold text-lg">
-												$ {parseFloat(expense.amount)}
+												${" "}
+												{parseFloat(
+													expense.amount.toString()
+												)}
 											</h1>
 										</div>
 									);
@@ -86,8 +92,15 @@ export default function ListOfExpense() {
 	);
 }
 
-const groupsDate = (expenses: any[]) => {
-	let groups: any = {};
+const groupsDate = (expenses: IExpense[]) => {
+	type IGroup = {
+		[name: string]: {
+			data: IExpense[];
+			total: number;
+		};
+	};
+
+	let groups: IGroup = {};
 
 	expenses.forEach(function (val) {
 		let date = dayjs(val.created_at).calendar().split(" ")[0];

@@ -7,6 +7,7 @@ const logs: ILogs = {
 		"Chore remove some bundle size on initial load.",
 		"Improve SEO.",
 		"Cache list of tags.",
+		"Export database schema for typescript intellisense.",
 	],
 	"Fri Jan 06 2023": [
 		"Release personal user's data summary expense.",

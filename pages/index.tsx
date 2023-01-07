@@ -21,7 +21,7 @@ export default function Home() {
 				<div
 					className={cn(
 						"sm:max-w-lg mx-auto bg-white px-5 flex justify-center items-center relative",
-						isAdding ? "overflow-hidden h-screen" : ""
+						isAdding ? "overflow-hidden h-screen" : "min-h-screen"
 					)}
 				>
 					<AddExpense

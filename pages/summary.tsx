@@ -27,7 +27,7 @@ export default function Summary() {
 		return <></>;
 	}
 
-	if (!data.data.length) {
+	if (!data?.data?.length) {
 		return (
 			<SiteLayout>
 				<h1>{"You don't have any expenses yet."}</h1>
@@ -36,11 +36,11 @@ export default function Summary() {
 		);
 	}
 
-	const totalSpent = data?.data[0].total_expense.amount;
+	const totalSpent = data?.data[0].total_expense?.amount;
 	return (
 		<SiteLayout>
 			<div className="min-h-screen w-full py-10 flex flex-col gap-10 ">
-				<TotalSpent spent={totalSpent} />
+				<TotalSpent spent={totalSpent || 0} />
 				<Chart expenses={data.data} />
 				<ListOfSpent expenses={data.data} />
 			</div>

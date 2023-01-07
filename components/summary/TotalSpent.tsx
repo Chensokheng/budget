@@ -1,10 +1,10 @@
 import React from "react";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import useTotalExpense from "../../hook/useTotalExpense";
+import { ITotalExpense } from "../../type";
 
 export default function TotalSpent({ spent }: { spent: number }) {
 	const { data, isLoading } = useTotalExpense();
-
 	return (
 		<div>
 			<h1 className="text-5xl font-semibold mb-2">${spent}</h1>
@@ -12,7 +12,7 @@ export default function TotalSpent({ spent }: { spent: number }) {
 				<span className="text-gray-500">Total spent this month</span>
 				<Percentage
 					isLoading={isLoading}
-					lastMonth={data}
+					lastMonth={data?.data}
 					thisMonth={spent}
 				/>
 			</div>
@@ -26,7 +26,7 @@ const Percentage = ({
 	thisMonth,
 }: {
 	isLoading: boolean;
-	lastMonth: any;
+	lastMonth: ITotalExpense[] | null | undefined;
 	thisMonth: number;
 }) => {
 	if (isLoading) {
@@ -34,8 +34,8 @@ const Percentage = ({
 	}
 	let spentLastMonth = 0;
 
-	if (lastMonth.data.length) {
-		spentLastMonth = lastMonth.data[0].amount;
+	if (lastMonth?.length) {
+		spentLastMonth = lastMonth[0].amount;
 	}
 
 	const value = getPercentTagDiff(spentLastMonth, thisMonth);

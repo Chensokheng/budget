@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { getDate } from "../utils/getDate";
+import { PostgrestResponse } from "@supabase/supabase-js";
+import useCustomSupabaseClient from "./useCustomSupabaseClient";
+import { IExpense } from "../type";
 
 export default function useExpenses() {
-	const supabaseClient = useSupabaseClient();
+	const supabaseClient = useCustomSupabaseClient();
 
 	const getExpenses = () => {
 		const { firstDay, lastDay } = getDate();
@@ -26,8 +27,8 @@ export default function useExpenses() {
 			.order("created_at", { ascending: false });
 	};
 
-	return useQuery<any>(["expenses"], getExpenses, {
+	return useQuery(["expenses"], getExpenses, {
 		cacheTime: Infinity,
 		staleTime: 1000 * 60 * 5,
-	});
+	}) as UseQueryResult<PostgrestResponse<IExpense>, Error>;
 }
