@@ -11,6 +11,7 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
+import { IExpense } from "../../type";
 
 ChartJS.register(
 	CategoryScale,
@@ -21,8 +22,10 @@ ChartJS.register(
 	Legend
 );
 
-export default function Chart({ expenses }: { expenses: any }) {
+export default function Chart({ expenses }: { expenses: IExpense[] }) {
 	const amounts = [...expenses];
+
+	const data = generateData(expenses);
 	return (
 		<div className="w-full h-64">
 			<Bar
@@ -78,12 +81,13 @@ export default function Chart({ expenses }: { expenses: any }) {
 					},
 				}}
 				data={{
-					labels: generateDate().map((_, index) => index + 1),
+					labels: Object.keys(data).map((key) => {
+						let label = key.split(" ");
+						return label[1] + " " + label[2];
+					}),
 					datasets: [
 						{
-							data: amounts
-								.reverse()
-								.map((spent: any) => spent.amount),
+							data: Object.keys(data).map((key) => data[key]),
 							borderRadius: 100,
 							backgroundColor: (ctx, options) => {
 								if (ctx.raw === 0) {
@@ -101,13 +105,28 @@ export default function Chart({ expenses }: { expenses: any }) {
 	);
 }
 
-const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
+type data = {
+	[key: string]: number;
+};
+const generateData = (
+	expenses: IExpense[],
+	month = dayjs().month(),
+	year = dayjs().year()
+) => {
 	const firstDateOfMonth = dayjs().year(year).month(month).startOf("month");
 	const lastDateOfMonth = dayjs().year(year).month(month).endOf("month");
 
-	const arrayOfDate = [];
+	const listOfDates: data = {};
 	for (let i = firstDateOfMonth.date(); i <= lastDateOfMonth.date(); i++) {
-		arrayOfDate.push(firstDateOfMonth.date(i));
+		const dateString = firstDateOfMonth.date(i).toDate().toDateString();
+		listOfDates[dateString] = 0;
 	}
-	return arrayOfDate;
+	expenses.forEach(function (val) {
+		const expenseDate = dayjs(val.created_at).toDate().toDateString();
+
+		if (expenseDate in listOfDates) {
+			listOfDates[expenseDate] += val.amount;
+		}
+	});
+	return listOfDates;
 };
