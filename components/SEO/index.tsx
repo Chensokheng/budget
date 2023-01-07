@@ -31,7 +31,7 @@ export default function SE0() {
 			<meta name="twitter:title" content={title} />
 			<meta name="twitter:description" content={description} />
 			<meta name="twitter:image" content="/og.png" />
-			<link rel="icon" href="/favicon.ico" />
+			<link rel="icon" href="/icon.png" />
 		</Head>
 	);
 }
