@@ -1,7 +1,10 @@
 import { ILogs } from "../type";
 
 const logs: ILogs = {
-	"Sun Jan 08 2023": ["Fix bar chart with wrong data."],
+	"Sun Jan 08 2023": [
+		"Fix bar chart with wrong data.",
+		"Fix typo and remove useless.",
+	],
 	"Sat Jan 07 2023": [
 		"Support PWA",
 		"Add confirmation modal after user input the amount.",

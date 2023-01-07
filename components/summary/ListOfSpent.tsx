@@ -1,6 +1,7 @@
 import React from "react";
+import { IExpense } from "../../type";
 
-export default function ListOfSpent({ expenses }: { expenses: any[] }) {
+export default function ListOfSpent({ expenses }: { expenses: IExpense[] }) {
 	const result = groupsTags(expenses);
 
 	return (
@@ -20,11 +21,12 @@ export default function ListOfSpent({ expenses }: { expenses: any[] }) {
 									{name[1]}
 								</h1>
 								<p className="text-gray-500">
-									{spent.entries} entries
+									{spent.entry}{" "}
+									{spent.entry > 1 ? "entries" : "entry"}
 								</p>
 							</div>
 							<h1 className=" font-semibold text-lg">
-								${parseFloat(spent.total).toFixed(2)}
+								${parseFloat(spent.total.toString()).toFixed(2)}
 							</h1>
 						</div>
 					</div>
@@ -34,16 +36,21 @@ export default function ListOfSpent({ expenses }: { expenses: any[] }) {
 	);
 }
 
-const groupsTags = (expenses: any[]) => {
-	let groups: any = {};
+type IEntries = {
+	[key: string]: { entry: number; total: number };
+};
+const groupsTags = (expenses: IExpense[]) => {
+	let groups: IEntries = {};
 
 	expenses.forEach(function (val) {
-		const tag = val.tags.name;
-		if (tag in groups) {
-			groups[tag].total += val.amount;
-			groups[tag].entries += 1;
-		} else {
-			groups[tag] = { entries: 1, total: val.amount };
+		const tag = val.tags?.name;
+		if (tag) {
+			if (tag in groups) {
+				groups[tag].total += val.amount;
+				groups[tag].entry += 1;
+			} else {
+				groups[tag] = { entry: 1, total: val.amount };
+			}
 		}
 	});
 	return groups;

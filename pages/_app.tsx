@@ -7,11 +7,7 @@ import {
 	SupabaseClient,
 } from "@supabase/auth-helpers-react";
 import React, { useState } from "react";
-import {
-	QueryClient,
-	QueryClientProvider,
-	Hydrate,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Nunito } from "@next/font/google";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -28,7 +24,6 @@ export default function MyApp({
 	pageProps,
 }: AppProps<{
 	initialSession: Session;
-	dehydratedState: any;
 }>) {
 	const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 	const [queryClient] = React.useState(function () {
@@ -46,11 +41,9 @@ export default function MyApp({
 				initialSession={pageProps.initialSession}
 			>
 				<QueryClientProvider client={queryClient}>
-					<Hydrate state={pageProps.dehydratedState}>
-						<main className={nunito.className}>
-							<Component {...pageProps} />
-						</main>
-					</Hydrate>
+					<main className={nunito.className}>
+						<Component {...pageProps} />
+					</main>
 					<ReactQueryDevtools />
 				</QueryClientProvider>
 			</SessionContextProvider>
