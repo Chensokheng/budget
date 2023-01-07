@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 import { motion } from "framer-motion";
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -6,6 +6,8 @@ import { VscLoading } from "react-icons/vsc";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { ITag } from "../type";
 import { toast, Toaster } from "react-hot-toast";
+import useTags from "../hook/useTags";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ListTags({
 	isSelectTag,
@@ -16,9 +18,10 @@ export default function ListTags({
 	closeTag: () => void;
 	selectTag: (tag: ITag) => void;
 }) {
+	const queryClient = useQueryClient();
 	const [isOpen, setOpen] = useState(false);
 	const [isAdding, setAdding] = useState(false);
-	const [tags, setTags] = useState<ITag[]>([]);
+	const { data: tags, isLoading } = useTags();
 
 	const supabaseClient = useSupabaseClient();
 	const user = useUser();
@@ -38,7 +41,8 @@ export default function ListTags({
 		const { data, error } = await supabaseClient
 			.from("tags")
 			.insert({ name: nameTag, user_id: user?.id })
-			.select();
+			.select()
+			.single();
 		if (error) {
 			setAdding(false);
 			toast.error(error.message);
@@ -47,23 +51,17 @@ export default function ListTags({
 		setAdding(false);
 		setOpen(false);
 		toast.success(nameTag + " has been created.");
-		if (data?.length) {
-			setTags((currentTags) => [...currentTags, data[0] as ITag]);
+		if (data) {
+			const updatedTag = { ...tags };
+			updatedTag["data"] = [...updatedTag["data"], data];
+			queryClient.setQueryData(["tags"], updatedTag);
 		}
 		e.target.reset();
 	};
 
-	const getTags = async () => {
-		const { data } = await supabaseClient.from("tags").select();
-		if (data) {
-			setTags(data as ITag[]);
-		}
-	};
-
-	useEffect(() => {
-		getTags();
-		//eslint-disable-next-line
-	}, []);
+	if (isLoading) {
+		return <></>;
+	}
 
 	return (
 		<>
@@ -97,7 +95,7 @@ export default function ListTags({
 					>
 						<IoIosAdd className="h-8 w-8 text-gray-400 group-hover:text-zinc-500 group-hover:scale-125 transition-all" />
 					</div>
-					{tags.map((tag, index) => {
+					{tags.data.map((tag: ITag, index: number) => {
 						let name = tag.name.split(" ");
 						return (
 							<div

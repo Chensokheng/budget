@@ -6,6 +6,7 @@ const logs: ILogs = {
 		"Fix page scrolling on adding expense.",
 		"Chore remove some bundle size on initial load.",
 		"Improve SEO.",
+		"Cache list of tags.",
 	],
 	"Fri Jan 06 2023": [
 		"Release personal user's data summary expense.",

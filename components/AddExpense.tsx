@@ -156,14 +156,7 @@ export default function AddExpense({
 						height: "90vh",
 					}}
 				>
-					<button
-						className="absolute top-14 left-10 hover:tracking-wider transition-all"
-						onClick={closeTags}
-					>
-						Cancel
-					</button>
 					<div className="flex">
-						<span className="text-3xl text-gray-400">$</span>
 						<div>
 							<h1 className="text-center text-sm text-gray-400">
 								Today at {new Date().toDateString()}
@@ -186,12 +179,20 @@ export default function AddExpense({
 						<Tag tag={tag} />
 						<FiRotateCcw className="text-gray-400" />
 					</div>
-					<button
-						className="bg-black text-white px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
-						onClick={handleOnNext}
-					>
-						Next
-					</button>
+					<div className="flex gap-2">
+						<button
+							className=" bg-red-200 px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
+							onClick={closeTags}
+						>
+							Cancel
+						</button>
+						<button
+							className="bg-black text-white px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
+							onClick={handleOnNext}
+						>
+							Next
+						</button>
+					</div>
 				</div>
 			</motion.div>
 			<ListTags
