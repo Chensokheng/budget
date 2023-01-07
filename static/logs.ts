@@ -2,6 +2,7 @@ import { ILogs } from "../type";
 
 const logs: ILogs = {
 	"Sat Jan 07 2023": [
+		"Support PWA",
 		"Add confirmation modal after user input the amount.",
 		"Fix page scrolling on adding expense.",
 		"Chore remove some bundle size on initial load.",

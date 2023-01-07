@@ -1,3 +1,3 @@
-const nextUpdate = ["Dark mode.", "PWA version."];
+const nextUpdate = ["Dark mode."];
 
 export default nextUpdate;
