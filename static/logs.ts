@@ -5,6 +5,7 @@ const logs: ILogs = {
 		"Add confirmation modal after user input the amount.",
 		"Fix page scrolling on adding expense.",
 		"Chore remove some bundle size on initial load.",
+		"Improve SEO.",
 	],
 	"Fri Jan 06 2023": [
 		"Release personal user's data summary expense.",

@@ -7,6 +7,7 @@ const AddExpense = dynamic(() => import("../components/AddExpense"));
 import BottomNavigation from "../components/BottomNavigation";
 import dynamic from "next/dynamic";
 import cn from "../utils/cn";
+import Head from "next/head";
 
 export default function Home() {
 	const user = useUser();
@@ -15,25 +16,27 @@ export default function Home() {
 		return <Redirect to="/auth" />;
 	}
 	return (
-		<div className="bg-gray-50 min-h-screen relative">
-			<div
-				className={cn(
-					"sm:max-w-lg mx-auto bg-white px-5 flex justify-center items-center relative",
-					isAdding ? "overflow-hidden h-screen" : ""
-				)}
-			>
-				<AddExpense
-					isOpen={isAdding}
-					close={() => {
-						setAdding(false);
-					}}
-				/>
-				<div className="w-full">
-					<TotalExpense />
-					<ListOfExpense />
+		<>
+			<div className="bg-gray-50 min-h-screen relative">
+				<div
+					className={cn(
+						"sm:max-w-lg mx-auto bg-white px-5 flex justify-center items-center relative",
+						isAdding ? "overflow-hidden h-screen" : ""
+					)}
+				>
+					<AddExpense
+						isOpen={isAdding}
+						close={() => {
+							setAdding(false);
+						}}
+					/>
+					<div className="w-full">
+						<TotalExpense />
+						<ListOfExpense />
+					</div>
+					<BottomNavigation addExpense={() => setAdding(true)} />
 				</div>
-				<BottomNavigation addExpense={() => setAdding(true)} />
 			</div>
-		</div>
+		</>
 	);
 }

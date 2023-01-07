@@ -11,6 +11,7 @@ import {
 
 import { Nunito } from "@next/font/google";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import SE0 from "../components/SEO";
 
 const nunito = Nunito({
 	subsets: ["latin"],
@@ -30,18 +31,22 @@ export default function MyApp({
 	});
 
 	return (
-		<SessionContextProvider
-			supabaseClient={supabaseClient}
-			initialSession={pageProps.initialSession}
-		>
-			<QueryClientProvider client={queryClient}>
-				<Hydrate state={pageProps.dehydratedState}>
-					<main className={nunito.className}>
-						<Component {...pageProps} />
-					</main>
-				</Hydrate>
-				<ReactQueryDevtools />
-			</QueryClientProvider>
-		</SessionContextProvider>
+		<>
+			<SE0 />
+
+			<SessionContextProvider
+				supabaseClient={supabaseClient}
+				initialSession={pageProps.initialSession}
+			>
+				<QueryClientProvider client={queryClient}>
+					<Hydrate state={pageProps.dehydratedState}>
+						<main className={nunito.className}>
+							<Component {...pageProps} />
+						</main>
+					</Hydrate>
+					<ReactQueryDevtools />
+				</QueryClientProvider>
+			</SessionContextProvider>
+		</>
 	);
 }
