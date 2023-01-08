@@ -7,7 +7,10 @@ export default function TotalSpent({ spent }: { spent: number }) {
 	const { data, isLoading } = useTotalExpense();
 	return (
 		<div>
-			<h1 className="text-5xl font-semibold mb-2">${spent}</h1>
+			<h1 className="text-5xl font-semibold mb-2 text-red-500">
+				{"$ -"}
+				{spent}
+			</h1>
 			<div className="flex gap-2 items-center">
 				<span className="text-gray-500">Total spent this month</span>
 				<Percentage

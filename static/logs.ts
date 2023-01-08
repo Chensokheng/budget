@@ -7,6 +7,7 @@ const logs: ILogs = {
 		"Update auth page UI.",
 		"Render auth page from server.",
 		"Update navbar and reused it.",
+		"Update color scheme.",
 	],
 	"Sat Jan 07 2023": [
 		"Support PWA",

@@ -38,7 +38,7 @@ export default function ListOfExpense() {
 							<div className="pb-3 flex justify-between items-center">
 								<h1 className="text-gray-500">{date}</h1>
 								<h1 className="text-gray-500">
-									{"$ "}
+									{"$ -"}
 									{parseFloat(
 										expenses[date].total.toString()
 									).toFixed(2)}
@@ -73,11 +73,12 @@ export default function ListOfExpense() {
 													</p>
 												</div>
 											</div>
-											<h1 className="font-semibold text-lg">
-												${" "}
+											<h1 className="font-semibold text-lg text-red-400">
+												{"- "}
 												{parseFloat(
 													expense.amount.toString()
 												)}
+												{"$"}
 											</h1>
 										</div>
 									);
