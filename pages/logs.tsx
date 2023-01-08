@@ -55,18 +55,6 @@ export default function Logs() {
 					</div>{" "}
 				</div>
 			</div>
-			<div className="fixed bottom-0  w-lg h-14 grid grid-cols-2 bg-white px-8 sm:px-0 pb-9">
-				<div className="flex justify-center items-center flex-col group cursor-pointer">
-					<Link href="/">
-						<HiOutlineHome className="h-8 w-8 group-hover:scale-125 transition-all" />
-					</Link>
-				</div>
-				<div className="flex justify-center items-center flex-col group cursor-pointer">
-					<Link href="/logs">
-						<BsInfo className="h-8 w-8 group-hover:scale-125 transition-all" />
-					</Link>
-				</div>
-			</div>
 		</SiteLayout>
 	);
 }

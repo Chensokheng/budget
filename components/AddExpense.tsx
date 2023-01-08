@@ -9,17 +9,13 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast, Toaster } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
+import useAppState from "../hook/useAppState";
 const ConfirmExpense = dynamic(() => import("./ConfirmExpense"));
 const ListTags = dynamic(() => import("./ListTags"));
 
-export default function AddExpense({
-	isOpen,
-	close,
-}: {
-	isOpen: boolean;
-	close: () => void;
-}) {
+export default function AddExpense() {
 	const [isSelectTag, setSelectTag] = useState(false);
+	const { data } = useAppState();
 	const [tag, setTag] = useState<ITag>();
 	const [isConfirm, setIsConfirm] = useState(false);
 	const [adding, setAdding] = useState(false);
@@ -29,13 +25,19 @@ export default function AddExpense({
 	const supabaseClient = useSupabaseClient();
 	const queryClient = useQueryClient();
 	useEffect(() => {
-		if (isOpen) {
+		if (data?.isAddingExpense) {
 			inputRef.current.focus();
 		}
-	}, [isOpen]);
+	}, [data?.isAddingExpense]);
+
+	const closeAdding = () => {
+		const updateState = { ...data };
+		updateState["isAddingExpense"] = false;
+		queryClient.setQueryData(["state"], updateState);
+	};
 
 	const closeTags = () => {
-		close();
+		closeAdding();
 		setSelectTag(false);
 	};
 
@@ -111,7 +113,7 @@ export default function AddExpense({
 			queryClient.invalidateQueries(["expenses"]);
 			inputRef.current.value = "";
 			setIsConfirm(false);
-			close();
+			closeAdding();
 		}
 	};
 
@@ -143,7 +145,7 @@ export default function AddExpense({
 		<>
 			<motion.div
 				initial={false}
-				animate={isOpen ? "open" : "closed"}
+				animate={data?.isAddingExpense ? "open" : "closed"}
 				variants={{
 					open: { y: 0 },
 					closed: { y: "100%" },

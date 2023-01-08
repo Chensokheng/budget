@@ -4,39 +4,33 @@ import Redirect from "../components/Redirect";
 import TotalExpense from "../components/TotalExpense";
 import ListOfExpense from "../components/ListOfExpense";
 const AddExpense = dynamic(() => import("../components/AddExpense"));
-import BottomNavigation from "../components/BottomNavigation";
 import dynamic from "next/dynamic";
 import cn from "../utils/cn";
-import Head from "next/head";
+import useAppState from "../hook/useAppState";
 
 export default function Home() {
 	const user = useUser();
-	const [isAdding, setAdding] = useState(false);
+	const { data } = useAppState();
 	if (!user) {
 		return <Redirect to="/auth" />;
 	}
+
 	return (
-		<>
-			<div className="bg-gray-50 min-h-screen relative">
-				<div
-					className={cn(
-						"sm:max-w-lg mx-auto bg-white px-5 flex justify-center items-center relative",
-						isAdding ? "overflow-hidden h-screen" : "min-h-screen"
-					)}
-				>
-					<AddExpense
-						isOpen={isAdding}
-						close={() => {
-							setAdding(false);
-						}}
-					/>
-					<div className="w-full">
-						<TotalExpense />
-						<ListOfExpense />
-					</div>
-					<BottomNavigation addExpense={() => setAdding(true)} />
+		<div className="bg-gray-50 min-h-screen relative w-full">
+			<div
+				className={cn(
+					"sm:max-w-lg mx-auto bg-white flex justify-center items-center relative",
+					data?.isAddingExpense
+						? "overflow-hidden h-screen"
+						: "min-h-screen"
+				)}
+			>
+				<AddExpense />
+				<div className="w-full">
+					<TotalExpense />
+					<ListOfExpense />
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }

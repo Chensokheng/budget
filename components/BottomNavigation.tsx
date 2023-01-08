@@ -1,44 +1,76 @@
 import React from "react";
-import { CgAddR } from "react-icons/cg";
-import { BsInfo } from "react-icons/bs";
-import { FiPieChart } from "react-icons/fi";
-import { AiOutlineLogout } from "react-icons/ai";
+import {
+	HiOutlineChartPie,
+	HiOutlinePlus,
+	HiOutlineMegaphone,
+} from "react-icons/hi2";
 
 import Link from "next/link";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-export default function BottomNavigation({
-	addExpense,
-}: {
-	addExpense: () => void;
-}) {
-	const supabase = useSupabaseClient();
+import { useRouter } from "next/router";
+import cn from "../utils/cn";
+import { useQueryClient } from "@tanstack/react-query";
+import useAppState from "../hook/useAppState";
+
+export default function BottomNavigation() {
+	const router = useRouter();
+	const { data } = useAppState();
+	const queryClient = useQueryClient();
+	const openExpense = () => {
+		if (router.pathname === "/") {
+			const updateState = { ...data };
+			updateState["isAddingExpense"] = true;
+			queryClient.setQueryData(["state"], updateState);
+		} else {
+			router.push("/");
+		}
+	};
 	return (
-		<div className="fixed bottom-0  w-lg h-14 grid grid-cols-4 bg-white px-8 sm:px-0 pb-5 border-t pt-3">
-			<div className="flex justify-center items-center flex-col group cursor-pointer">
-				<Link href="/summary">
-					<FiPieChart className="h-8 w-8 group-hover:scale-125 transition-all" />
-				</Link>
-			</div>
-			<div
-				className="flex justify-center items-center flex-col group cursor-pointer"
-				onClick={addExpense}
-			>
-				<CgAddR className="h-8 w-8 hover:scale-125 transition-all" />
-			</div>
-			<div className="flex justify-center items-center flex-col group cursor-pointer">
-				<Link href="/logs">
-					<BsInfo className="h-8 w-8 group-hover:scale-125 transition-all" />
-				</Link>
-			</div>
-			<div
-				className="flex justify-center items-center flex-col group cursor-pointer"
-				onClick={async () => {
-					await supabase.auth.signOut();
-				}}
-			>
-				<AiOutlineLogout className="h-8 w-8 group-hover:scale-125 transition-all" />
-			</div>
+		<div className="fixed bottom-0  w-lg h-18 grid grid-cols-3 bg-white px-8 sm:px-0 pb-5 border-t pt-5 z-10">
+			<Link href={"/summary"}>
+				<div className="flex justify-center items-center flex-col group cursor-pointer">
+					<div
+						className={cn(
+							"flex items-center flex-col  justify-center",
+							router.pathname === "/summary"
+								? "text-black"
+								: "text-gray-500"
+						)}
+					>
+						<HiOutlineChartPie className="h-8 w-8 group-hover:scale-125 transition-all " />
+						<span className="text-sm ">Analytic</span>
+					</div>
+				</div>
+			</Link>
+			<AddExpenseNav openExpense={openExpense} />
+			<Link href="/logs">
+				<div className="flex justify-center items-center flex-col group cursor-pointer">
+					<div
+						className={cn(
+							"flex items-center flex-col  justify-center",
+							router.pathname === "/logs"
+								? "text-black"
+								: "text-gray-500"
+						)}
+					>
+						<HiOutlineMegaphone className="h-8 w-8 group-hover:scale-125 transition-all" />
+						<span className="text-sm">Change logs</span>
+					</div>
+				</div>
+			</Link>
 		</div>
 	);
 }
+
+const AddExpenseNav = ({ openExpense }: { openExpense: () => void }) => {
+	return (
+		<button
+			className="flex justify-center items-center flex-col group cursor-pointer"
+			onClick={openExpense}
+		>
+			<div className="h-12 w-12 bg-yellow-200 group-hover:bg-yellow-300 rounded-full grid place-content-center shadow-sm transition-all groupgroup-hover:hover:text-black">
+				<HiOutlinePlus className="h-8 w-8 hover:scale-125 transition-all " />
+			</div>
+		</button>
+	);
+};

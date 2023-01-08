@@ -13,6 +13,7 @@ import { Nunito } from "@next/font/google";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SE0 from "../components/SEO";
 import { Database } from "../type/schema";
+import SiteLayout from "../components/SiteLayout";
 
 const nunito = Nunito({
 	subsets: ["latin"],
@@ -42,7 +43,9 @@ export default function MyApp({
 			>
 				<QueryClientProvider client={queryClient}>
 					<main className={nunito.className}>
-						<Component {...pageProps} />
+						<SiteLayout>
+							<Component {...pageProps} />{" "}
+						</SiteLayout>
 					</main>
 					<ReactQueryDevtools />
 				</QueryClientProvider>

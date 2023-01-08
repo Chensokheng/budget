@@ -65,7 +65,7 @@ export default function ListOfExpense() {
 													{tag[0]}
 												</h1>
 												<div>
-													<h1 className=" font-semibold text-lg">
+													<h1 className=" font-semibold text-lg capitalize">
 														{tag[1]}
 													</h1>
 													<p className="text-gray-500">
