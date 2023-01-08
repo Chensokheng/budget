@@ -4,8 +4,9 @@ const logs: ILogs = {
 	"Sun Jan 08 2023": [
 		"Fix bar chart with wrong data.",
 		"Fix typo and remove useless.",
-		"Update auth page.",
-		"Reused navbar component.",
+		"Update auth page UI.",
+		"Render auth page from server.",
+		"Update navbar and reused it.",
 	],
 	"Sat Jan 07 2023": [
 		"Support PWA",

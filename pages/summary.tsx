@@ -38,7 +38,7 @@ export default function Summary() {
 
 	const totalSpent = data?.data[0].total_expense?.amount;
 	return (
-		<div className="min-h-screen w-full py-10 flex flex-col gap-10 pb-20 px-3 ">
+		<div className="min-h-screen w-full pt-14 flex flex-col gap-10 pb-20 px-3 ">
 			<TotalSpent spent={totalSpent || 0} />
 			<Chart expenses={data.data} />
 			<ListOfSpent expenses={data.data} />

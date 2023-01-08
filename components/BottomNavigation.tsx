@@ -25,9 +25,18 @@ export default function BottomNavigation() {
 			router.push("/");
 		}
 	};
+	const navigate = (path: string) => {
+		router.push(path);
+		if (router.pathname !== path && data?.isAddingExpense) {
+			const updateState = { ...data };
+			updateState["isAddingExpense"] = false;
+			queryClient.setQueryData(["state"], updateState);
+		}
+	};
+
 	return (
 		<div className="fixed bottom-0  w-lg h-18 grid grid-cols-3 bg-white px-8 sm:px-0 pb-5 border-t pt-5 z-10">
-			<Link href={"/summary"}>
+			<button onClick={() => navigate("/summary")}>
 				<div className="flex justify-center items-center flex-col group cursor-pointer">
 					<div
 						className={cn(
@@ -37,13 +46,13 @@ export default function BottomNavigation() {
 								: "text-gray-500"
 						)}
 					>
-						<HiOutlineChartPie className="h-8 w-8 group-hover:scale-125 transition-all " />
+						<HiOutlineChartPie className="h-6 w-6 group-hover:scale-125 transition-all " />
 						<span className="text-sm ">Analytic</span>
 					</div>
 				</div>
-			</Link>
+			</button>
 			<AddExpenseNav openExpense={openExpense} />
-			<Link href="/logs">
+			<button onClick={() => navigate("/logs")}>
 				<div className="flex justify-center items-center flex-col group cursor-pointer">
 					<div
 						className={cn(
@@ -53,11 +62,11 @@ export default function BottomNavigation() {
 								: "text-gray-500"
 						)}
 					>
-						<HiOutlineMegaphone className="h-8 w-8 group-hover:scale-125 transition-all" />
+						<HiOutlineMegaphone className="h-6 w-6 group-hover:scale-125 transition-all" />
 						<span className="text-sm">Change logs</span>
 					</div>
 				</div>
-			</Link>
+			</button>
 		</div>
 	);
 }

@@ -16,7 +16,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className="bg-gray-50 min-h-screen relative w-full">
+		<div className="bg-gray-50 min-h-screen relative w-full pb-20">
 			<div
 				className={cn(
 					"sm:max-w-lg mx-auto bg-white flex justify-center items-center relative",
