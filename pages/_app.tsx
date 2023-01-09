@@ -14,6 +14,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SE0 from "../components/SEO";
 import { Database } from "../type/schema";
 import SiteLayout from "../components/SiteLayout";
+import { ThemeProvider } from "next-themes";
 
 const nunito = Nunito({
 	subsets: ["latin"],
@@ -42,11 +43,14 @@ export default function MyApp({
 				initialSession={pageProps.initialSession}
 			>
 				<QueryClientProvider client={queryClient}>
-					<main className={nunito.className}>
-						<SiteLayout>
-							<Component {...pageProps} />{" "}
-						</SiteLayout>
-					</main>
+					<ThemeProvider attribute="class" defaultTheme="light">
+						<main className={nunito.className}>
+							<SiteLayout>
+								<Component {...pageProps} />{" "}
+							</SiteLayout>
+						</main>
+					</ThemeProvider>
+
 					<ReactQueryDevtools />
 				</QueryClientProvider>
 			</SessionContextProvider>

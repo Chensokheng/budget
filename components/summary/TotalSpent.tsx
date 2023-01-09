@@ -12,7 +12,9 @@ export default function TotalSpent({ spent }: { spent: number }) {
 				{spent}
 			</h1>
 			<div className="flex gap-2 items-center">
-				<span className="text-gray-500">Total spent this month</span>
+				<span className="text-gray-500 dark:text-gray-400">
+					Total spent this month
+				</span>
 				<Percentage
 					isLoading={isLoading}
 					lastMonth={data?.data}
@@ -49,8 +51,8 @@ const Percentage = ({
 	return (
 		<div className="flex items-center gap-2">
 			{increase ? (
-				<div className="h-5 w-5 rounded-full bg-red-200 grid place-content-center">
-					<BiUpArrowAlt className="text-red-500" />
+				<div className="h-5 w-5 rounded-full bg-red-200 dark:bg-red-400 dark:bg-opacity-50 grid place-content-center">
+					<BiUpArrowAlt className="text-red-500 dark:text-red-300" />
 				</div>
 			) : (
 				<div className="h-5 w-5 rounded-full bg-green-200 grid place-content-center">

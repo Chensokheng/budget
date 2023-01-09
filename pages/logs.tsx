@@ -9,7 +9,7 @@ import nextUpdate from "../static/nextupdate";
 
 export default function Logs() {
 	return (
-		<div className="min-h-screen w-full pt-10 pb-20">
+		<div className="min-h-screen w-full pt-10 pb-20 dark:text-slate-100">
 			<div className="border-b">
 				<Link href="/">
 					<IoReturnUpBack className="h-8 w-8 hover:scale-110 transition-all" />
@@ -27,10 +27,10 @@ export default function Logs() {
 					{Object.keys(logs).map((date, index) => {
 						return (
 							<div
-								className="flex flex-col gap-3 hover:bg-gray-100 py-3 px-2"
+								className="flex flex-col gap-3 hover:bg-gray-100 dark:hover:bg-gray-900 py-3 px-2"
 								key={index}
 							>
-								<p className="text-sm text-gray-500 border-l-2 pl-5">
+								<p className="text-sm text-gray-500 dark:text-gray-400 border-l-2 pl-5">
 									{date}
 								</p>
 								<div className=" border-yellow-600 flex flex-col gap-2">

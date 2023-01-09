@@ -1,6 +1,7 @@
 import { ILogs } from "../type";
 
 const logs: ILogs = {
+	"Mon Jan 09 2023": ["Support dark mode."],
 	"Sun Jan 08 2023": [
 		"Fix bar chart with wrong data.",
 		"Fix typo and remove useless.",

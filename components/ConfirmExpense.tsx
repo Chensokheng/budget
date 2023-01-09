@@ -28,7 +28,7 @@ export default function ConfirmExpense({
 					open: { y: 0 },
 					closed: { y: "100%" },
 				}}
-				className="fixed bottom-0 h-screen   w-full sm:w-lg bg-white p-5 bg-opacity-90 backdrop-blur-sm "
+				className="fixed bottom-0 h-screen   w-full sm:w-lg bg-white dark:bg-black p-5 bg-opacity-90 backdrop-blur-sm "
 			></motion.div>
 			<motion.div
 				initial={false}
@@ -37,7 +37,7 @@ export default function ConfirmExpense({
 					open: { y: 0 },
 					closed: { y: "100%" },
 				}}
-				className="fixed bottom-0 h-1/2 z-40   w-full sm:w-lg rounded-t-2xl border-t p-5 bg-opacity-90 backdrop-blur-sm "
+				className="fixed bottom-0 h-1/2 z-40   w-full sm:w-lg rounded-t-2xl border-t p-5 bg-opacity-90 backdrop-blur-sm dark:border-zinc-600 "
 			>
 				<div className="flex flex-col h-full">
 					<div className="flex flex-col gap-5">
@@ -74,20 +74,20 @@ export default function ConfirmExpense({
 					</div>
 					<div className="grid grid-cols-2 gap-2">
 						<button
-							className="bg-red-200 rounded-md hover:tracking-wider transition-all"
+							className="bg-red-200 dark:bg-red-400  rounded-md hover:tracking-wider transition-all"
 							onClick={handleOnCancel}
 						>
 							Cancel
 						</button>
 						<button
 							className={[
-								"bg-black text-white py-5 w-full justify-center items-center rounded-lg hover:tracking-wider transition-all hover:shadow-md  flex gap-3",
+								"bg-black dark:bg-white dark:text-black text-white py-5 w-full justify-center items-center rounded-lg hover:tracking-wider transition-all hover:shadow-md  flex gap-3",
 								adding ? "animate-pulse" : "",
 							].join(" ")}
 							onClick={submitExpense}
 						>
 							{adding && <VscLoading className="animate-spin" />}
-							Next
+							Confirm
 						</button>
 					</div>
 				</div>

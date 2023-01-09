@@ -150,7 +150,7 @@ export default function AddExpense() {
 					open: { y: 0 },
 					closed: { y: "100%" },
 				}}
-				className="fixed bottom-0 h-screen  w-full sm:w-lg bg-white p-5 bg-opacity-90 backdrop-blur-sm "
+				className="fixed bottom-0 h-screen  w-full sm:w-lg bg-white dark:bg-black p-5 bg-opacity-90 backdrop-blur-sm "
 			>
 				<div
 					className="w-full flex justify-center items-center h-screen flex-col gap-10"
@@ -183,13 +183,13 @@ export default function AddExpense() {
 					</div>
 					<div className="flex gap-2">
 						<button
-							className=" bg-red-200 px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
+							className=" bg-red-200 dark:bg-red-400 px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
 							onClick={closeTags}
 						>
 							Cancel
 						</button>
 						<button
-							className="bg-black text-white px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
+							className="bg-black dark:bg-white text-white dark:text-black px-8  py-3 rounded-md hover:tracking-wider transition-all hover:shadow-md"
 							onClick={handleOnNext}
 						>
 							Next

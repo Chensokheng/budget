@@ -15,14 +15,14 @@ export default function SiteLayout({
 	return (
 		<div
 			className={cn(
-				"bg-gray-50 min-h-screen relative",
+				"bg-gray-50 dark:bg-gray-900 min-h-screen relative",
 				isAuthPage || data?.isAddingExpense
 					? "overflow-hidden h-screen"
 					: ""
 			)}
 		>
 			{!isAuthPage && <Navigation />}
-			<div className="sm:max-w-lg mx-auto bg-white px-5 flex justify-center items-center relative min-h-screen ">
+			<div className="sm:max-w-lg mx-auto bg-white dark:bg-black px-5 flex justify-center items-center relative min-h-screen ">
 				{children}
 				{!isAuthPage && <BottomNavigation />}
 			</div>

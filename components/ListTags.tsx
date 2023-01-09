@@ -76,7 +76,7 @@ export default function ListTags({
 						closeTag();
 					}}
 				>
-					<div className="h-screen w-lg mx-auto bg-white bg-opacity-60 backdrop-blur-sm"></div>
+					<div className="h-screen w-lg mx-auto bg-white dark:bg-black bg-opacity-60 backdrop-blur-sm"></div>
 				</div>
 			)}
 			<motion.div
@@ -86,7 +86,7 @@ export default function ListTags({
 					open: { y: 0 },
 					closed: { y: "100%" },
 				}}
-				className="fixed bottom-0 h-1/2 max-w-lg sm:w-lg w-full bg-white p-5 border-t  rounded-t-3xl"
+				className="fixed bottom-0 h-1/2 max-w-lg sm:w-lg w-full bg-white dark:bg-black p-5 border-t  rounded-t-3xl dark:border-zinc-600"
 			>
 				<h1 className="text-center mb-5 uppercase text-gray-400">
 					Expenses
@@ -110,7 +110,7 @@ export default function ListTags({
 								}}
 							>
 								<span className="text-xl ">{name[0]}</span>
-								<h1 className="text-sm group-hover:scale-125 transition-all">
+								<h1 className="text-sm group-hover:scale-125 transition-all dark:text-slate-100">
 									{name[1]}
 								</h1>
 							</div>
@@ -125,9 +125,9 @@ export default function ListTags({
 					open: { x: 0, opacity: 1 },
 					closed: { x: "-200%", opacity: 0 },
 				}}
-				className="fixed bottom-0 h-2/3 max-w-lg sm:w-lg w-full bg-white p-5 border-t"
+				className="fixed bottom-0 h-2/3 max-w-lg sm:w-lg w-full bg-white dark:bg-black p-5 border-t dark:border-zinc-600"
 			>
-				<div className="border-b">
+				<div className="border-b dark:border-zinc-600">
 					<BsArrowLeftShort
 						className="w-8 h-8"
 						onClick={() => setOpen(false)}
@@ -142,20 +142,20 @@ export default function ListTags({
 					onSubmit={createTag}
 				>
 					<input
-						className="border-b text-center outline-none"
+						className="border-b text-center outline-none bg-transparent dark:border-zinc-600"
 						placeholder="🏠 (sticker)"
 						name="sticker"
 						required
 					/>
 					<input
-						className="border-b text-center outline-none"
+						className="border-b text-center outline-none bg-transparent dark:border-zinc-600"
 						placeholder="rent (name)"
 						name="name"
 						required
 					/>
 					<button
 						className={[
-							"bg-black text-white px-4 py-2 rounded-md flex items-center gap-2 ",
+							"bg-black dark:bg-white dark:text-black text-white px-4 py-2 rounded-md flex items-center gap-2 ",
 							isAdding ? "animate-pulse" : "",
 						].join(" ")}
 						disabled={isAdding}

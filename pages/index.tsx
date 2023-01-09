@@ -16,10 +16,10 @@ export default function Home() {
 	}
 
 	return (
-		<div className="bg-gray-50 min-h-screen relative w-full pb-20">
+		<div className="bg-gray-50 dark:bg-gray-900 min-h-screen relative w-full pb-20">
 			<div
 				className={cn(
-					"sm:max-w-lg mx-auto bg-white flex justify-center items-center relative",
+					"sm:max-w-lg mx-auto bg-white dark:bg-black flex justify-center items-center relative",
 					data?.isAddingExpense
 						? "overflow-hidden h-screen"
 						: "min-h-screen"

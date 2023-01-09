@@ -21,7 +21,7 @@ export default function ListOfExpense() {
 	if (!data?.data?.length) {
 		return (
 			<div className="h-72">
-				<h1 className="text-center text-gray-500">
+				<h1 className="text-center text-gray-500 dark:text-gray-400">
 					{"No expense records yet."}
 				</h1>{" "}
 			</div>
@@ -31,13 +31,15 @@ export default function ListOfExpense() {
 
 	return (
 		<>
-			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 divide-y ">
+			<div className="w-full bg mt-20 flex flex-col gap-5 pb-14 divide-y dark:divide-zinc-600 ">
 				{Object.keys(expenses).map((date: string, index: number) => {
 					return (
 						<div key={index} className="pt-5">
 							<div className="pb-3 flex justify-between items-center">
-								<h1 className="text-gray-500">{date}</h1>
-								<h1 className="text-gray-500">
+								<h1 className="text-gray-500 dark:text-gray-400">
+									{date}
+								</h1>
+								<h1 className="text-gray-500 dark:text-gray-400">
 									{"$ -"}
 									{parseFloat(
 										expenses[date].total.toString()
@@ -65,7 +67,7 @@ export default function ListOfExpense() {
 													{tag[0]}
 												</h1>
 												<div>
-													<h1 className=" font-semibold text-lg capitalize">
+													<h1 className=" font-semibold text-lg capitalize dark:text-slate-100">
 														{tag[1]}
 													</h1>
 													<p className="text-gray-500">

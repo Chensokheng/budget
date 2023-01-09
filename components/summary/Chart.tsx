@@ -105,10 +105,10 @@ export default function Chart({ expenses }: { expenses: IExpense[] }) {
 					}}
 				/>
 			</div>
-			<div className="flex items-center justify-between bg-slate-50 py-3 px-2 rounded-md mt-16">
+			<div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800 py-3 px-2 rounded-md mt-16">
 				<div className="flex items-center gap-5 ">
 					<div className="h-9 w-9 bg-yellow-200 rounded-full grid place-content-center">
-						<HiOutlineArrowTrendingUp className="w-6 h-6 text-gray-500" />
+						<HiOutlineArrowTrendingUp className="w-6 h-6 text-gray-500 dark:text-gray-400" />
 					</div>
 					<div>
 						<h1 className="font-semibold">Highest Spent</h1>
